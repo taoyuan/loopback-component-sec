@@ -26,6 +26,10 @@ $ npm run lint          # Lint the source code with ESLint
 $ npm test              # Lint and Run unit tests with Mocha
 ```
 
+### Creds
+
+* [mrfelton](https://github.com/mrfelton)
+
 ### License
 
 MIT © [Yuan Tao]()
