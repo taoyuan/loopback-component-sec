@@ -79,7 +79,7 @@ read
  - **manager**  
 read, write
 
- - **$admin**  
+ - **admin**  
 read, write, delete
 
 There are a number of test user accounts in the sample application.
