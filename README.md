@@ -30,7 +30,7 @@ __2) Query Filters__
 An 'access' [Operation Hook](https://docs.strongloop.com/display/public/LB/Operation+hooks) is injected into each Group Content model. 
 This is used to filter search results to ensure that only items that a user has access to (based on their scoped User Role Mappings) are returned.
 
-__3) Row(Record) Level Secure__
+__3) Row Level Secure__
 
 A model (Group or Group context model) 'access' operation hook or connector 'execute' operation hook according to database 
 connector is injected to add additional filter based on model permissions attached with `acl.allow()`.
