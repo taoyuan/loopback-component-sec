@@ -9,10 +9,10 @@
 
 ### Introduction
 
-`loopback-component-sec` using [nsec](taoyuan/nsec) enables you to add multi-tenant style access controls to a loopback application. 
+`loopback-component-sec` using [nsec](//github.com/taoyuan/nsec) enables you to add multi-tenant style access controls to a loopback application. 
 It enables you to restrict access to model data based on a user's roles within a specific context.
 
-The main concept is borrowed from [loopback-component-access-groups](fullcube/loopback-component-access-groups).
+The main concept is borrowed from [loopback-component-access-groups](//github.com/fullcube/loopback-component-access-groups).
 
 `loopback-component-sec` provide a inheritable roles management and a row level access controller.
 
