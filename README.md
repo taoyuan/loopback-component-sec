@@ -54,7 +54,7 @@ This is used to filter search results to ensure that only items that a user has 
 			"{option}": "{value}"
 		}
 	}
-```
+	```
 
 ### Usage
 
