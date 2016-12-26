@@ -40,21 +40,21 @@ This is used to filter search results to ensure that only items that a user has 
 
 1. Install in you loopback project:
 
-```sh
-$ npm install --save loopback-component-sec
-```
+	```sh
+	$ npm install --save loopback-component-sec
+	```
 
 2. Create a component-config.json file in your server folder (if you don't already have one)
 
 3. Configure options inside `component-config.json`. *(see configuration section)*
 
-  ```json
-  {
-    "loopback-component-sec": {
-      "{option}": "{value}"
-    }
-  }
-  ```
+	```json
+	{
+		"loopback-component-sec": {
+			"{option}": "{value}"
+		}
+	}
+```
 
 ### Usage
 
