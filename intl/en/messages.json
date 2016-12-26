@@ -1,0 +1,8 @@
+{
+  "1edeed6d6bf1a38b8965b4ef005e6ee6": "ACCESS denied: Model {0} has no relation {1} to group",
+  "34a2685be5fd91df89c9f706c25332c0": "Attaching Auto Add Permissions Observer to {0}",
+  "8a7a901580a827bf91544d7a4eb0527e": "Attaching Auto Add Roles Observer to {0}",
+  "9236fbb2bfc0b5f0ee4e0565964b3836": "\"inst\" is required",
+  "d89c63d516f39b57f4462435013f1b4a": "resource has no relation {0}",
+  "f976722fb6751e8da30089398df16b9c": "Invalid settings for model {0} security settings {1}.{2}"
+}

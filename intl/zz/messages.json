@@ -1,0 +1,177 @@
+{
+  "Current User: %j": [
+    "debug:src/current-user-context.js:34"
+  ],
+  "No user with this access token was found.": [
+    "Error:src/current-user-context.js:31"
+  ],
+  "accessToken": [
+    "loopbackContext.set:src/current-user-context.js:23"
+  ],
+  "currentUser": [
+    "loopbackContext.set:src/current-user-context.js:33",
+    "ctx.get:src/security.js:90"
+  ],
+  "initializing current user context middleware": [
+    "debug:src/current-user-context.js:9"
+  ],
+  "auth:after": [
+    "app.middleware:src/index.js:20"
+  ],
+  "initializing component": [
+    "debug:src/index.js:10"
+  ],
+  "loopback-component-sacl requires loopback 2.0 or newer": [
+    "Error:src/index.js:17"
+  ],
+  "34a2685be5fd91df89c9f706c25332c0": [
+    "g.f:src/secures/auto-add-permissions.js:27"
+  ],
+  "%s - Allowing default permissions for \"%s:%s\"": [
+    "debug:src/secures/auto-add-permissions.js:38"
+  ],
+  "Setup Auto Add Permissions Observer": [
+    "chalk.yellow:src/secures/auto-add-permissions.js:10"
+  ],
+  "after save": [
+    "Model.observe:src/secures/auto-add-permissions.js:32",
+    "Model.observe:src/secures/auto-add-roles.js:33"
+  ],
+  "8a7a901580a827bf91544d7a4eb0527e": [
+    "g.f:src/secures/auto-add-roles.js:28"
+  ],
+  "%s - Adding roles %j to \"%s:%s\"": [
+    "debug:src/secures/auto-add-roles.js:42"
+  ],
+  "%s - Adding user \"%s\" to roles %j of \"%s:%s\"": [
+    "debug:src/secures/auto-add-roles.js:51"
+  ],
+  "Setup Auto Add Roles Observer": [
+    "chalk.yellow:src/secures/auto-add-roles.js:11"
+  ],
+  "f976722fb6751e8da30089398df16b9c": [
+    "g.f:src/secures/build.js:91"
+  ],
+  "\"default-permissions\" has been deprecated, using \"permissions\" instead": [
+    "deprecated:src/secures/build.js:31"
+  ],
+  "build models security for group models %j and resource models %j": [
+    "debug:src/secures/build.js:13"
+  ],
+  "1edeed6d6bf1a38b8965b4ef005e6ee6": [
+    "g.f:src/secures/filters.js:93"
+  ],
+  "%s - Appending to query: %j": [
+    "debug:src/secures/filters.js:60"
+  ],
+  "%s - Find allowed resources for model %s": [
+    "debug:src/secures/filters.js:107"
+  ],
+  "%s - Find allowed resources with scope %j": [
+    "debug:src/secures/filters.js:101"
+  ],
+  "%s - Group Type: %s, Group Key: %s, Where: %j": [
+    "debug:src/secures/filters.js:97"
+  ],
+  "%s - Modified query for model %s: %j": [
+    "debug:src/secures/filters.js:66"
+  ],
+  "%s - Observing access for %s": [
+    "debug:src/secures/filters.js:46"
+  ],
+  "%s - Skip filter for current user is admin": [
+    "debug:src/secures/filters.js:55"
+  ],
+  "%s - Skip filter for no user attached": [
+    "debug:src/secures/filters.js:49"
+  ],
+  "%s - Skip filter for options skipAccess has been set as true": [
+    "debug:src/secures/filters.js:40"
+  ],
+  "ACCESS observer - Attaching access observer to %s": [
+    "debug:src/secures/filters.js:32"
+  ],
+  "Setup Filters Observer": [
+    "chalk.yellow:src/secures/filters.js:10"
+  ],
+  "access": [
+    "Model.observe:src/secures/filters.js:37"
+  ],
+  "failed loading actions \"%s\": %j": [
+    "debug:src/secures/load-abilities.js:18"
+  ],
+  "loaded actions \"%s\": %j": [
+    "debug:src/secures/load-abilities.js:16"
+  ],
+  "loaded all permissions successfully": [
+    "debug:src/secures/load-abilities.js:22"
+  ],
+  "loading permissions from models: %j": [
+    "debug:src/secures/load-abilities.js:9"
+  ],
+  "%s": [
+    "chalk.red:src/secures/role-resolver.js:78"
+  ],
+  ": ": [
+    "result.push:src/secures/role-resolver.js:59"
+  ],
+  "Determined current group: %j, from model: %s, with id: %s, for method: %s": [
+    "debug:src/secures/role-resolver.js:163"
+  ],
+  "Determined current group: %j, from remoting incoming data for model %s, for method %s": [
+    "debug:src/secures/role-resolver.js:171"
+  ],
+  "Determined target group: %j, from incoming data for model: %s, for method: %s": [
+    "debug:src/secures/role-resolver.js:182"
+  ],
+  "Fetching current group for model: %s, with id: %s, for method: %s": [
+    "debug:src/secures/role-resolver.js:158"
+  ],
+  "Role": [
+    "registry.getModelByType:src/secures/role-resolver.js:41"
+  ],
+  "admin": [
+    "chalk.red:src/secures/role-resolver.js:78"
+  ],
+  "9236fbb2bfc0b5f0ee4e0565964b3836": [
+    "g.f:src/security.js:156"
+  ],
+  "d89c63d516f39b57f4462435013f1b4a": [
+    "g.f:src/security.js:168"
+  ],
+  "---------------------------------------------------------------": [
+    "debug:src/security.js:279",
+    "debug:src/security.js:281",
+    "debug:src/security.js:286"
+  ],
+  "Auto updating groups permissions": [
+    "debug:src/security.js:230"
+  ],
+  "Auto updating permissions %s.": [
+    "debug:src/security.js:280"
+  ],
+  "Auto updating resources permissions": [
+    "debug:src/security.js:260"
+  ],
+  "Skip %s auto update permissions for no default roles defined for it": [
+    "debug:src/security.js:243"
+  ],
+  "allowDefaultPermissions - Allowing %s:%s:%s to access %s:%s with permissions %j": [
+    "debug:src/security.js:190"
+  ],
+  "allowDefaultPermissions - No roles %j found for %s:%s": [
+    "debug:src/security.js:186"
+  ],
+  "allowDefaultPermissions - Skip for no group instance found for %s:%s": [
+    "debug:src/security.js:180"
+  ],
+  "assignRolesForGroupCreator - Assign user %s to roles %j": [
+    "debug:src/security.js:222"
+  ],
+  "assignRolesForGroupCreator - No user or creator of group %s:%s found, skip assign roles for creator.": [
+    "debug:src/security.js:218"
+  ],
+  "assignRolesForGroupCreator - Sure group %s:%s with roles %j": [
+    "debug:src/security.js:202"
+  ]
+}

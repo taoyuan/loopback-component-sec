@@ -1,0 +1,201 @@
+{
+  "src/current-user-context.js": {
+    "9": [
+      "debug('initializing current user context middleware')"
+    ],
+    "23": [
+      "loopbackContext.set('accessToken')"
+    ],
+    "31": [
+      "Error('No user with this access token was found.')"
+    ],
+    "33": [
+      "loopbackContext.set('currentUser')"
+    ],
+    "34": [
+      "debug('Current User: %j', ... )"
+    ]
+  },
+  "src/security.js": {
+    "90": [
+      "ctx.get('currentUser')"
+    ],
+    "156": [
+      "g.f('9236fbb2bfc0b5f0ee4e0565964b3836')"
+    ],
+    "168": [
+      "g.f('d89c63d516f39b57f4462435013f1b4a')"
+    ],
+    "180": [
+      "debug('allowDefaultPermissions - Skip for no group instance found for %s:%s', ... )"
+    ],
+    "186": [
+      "debug('allowDefaultPermissions - No roles %j found for %s:%s', ... )"
+    ],
+    "190": [
+      "debug('allowDefaultPermissions - Allowing %s:%s:%s to access %s:%s with permissions %j', ... )"
+    ],
+    "202": [
+      "debug('assignRolesForGroupCreator - Sure group %s:%s with roles %j', ... )"
+    ],
+    "218": [
+      "debug('assignRolesForGroupCreator - No user or creator of group %s:%s found, skip assign roles for creator.', ... )"
+    ],
+    "222": [
+      "debug('assignRolesForGroupCreator - Assign user %s to roles %j', ... )"
+    ],
+    "230": [
+      "debug('Auto updating groups permissions')"
+    ],
+    "243": [
+      "debug('Skip %s auto update permissions for no default roles defined for it', ... )"
+    ],
+    "260": [
+      "debug('Auto updating resources permissions')"
+    ],
+    "279": [
+      "debug('---------------------------------------------------------------')"
+    ],
+    "280": [
+      "debug('Auto updating permissions %s.', ... )"
+    ],
+    "281": [
+      "debug('---------------------------------------------------------------')"
+    ],
+    "286": [
+      "debug('---------------------------------------------------------------')"
+    ]
+  },
+  "src/index.js": {
+    "10": [
+      "debug('initializing component')"
+    ],
+    "17": [
+      "Error('loopback-component-sacl requires loopback 2.0 or newer')"
+    ],
+    "20": [
+      "app.middleware('auth:after')"
+    ]
+  },
+  "src/secures/auto-add-permissions.js": {
+    "10": [
+      "chalk.yellow('Setup Auto Add Permissions Observer')"
+    ],
+    "27": [
+      "g.f('34a2685be5fd91df89c9f706c25332c0')"
+    ],
+    "32": [
+      "Model.observe('after save')"
+    ],
+    "38": [
+      "debug('%s - Allowing default permissions for \"%s:%s\"', ... )"
+    ]
+  },
+  "src/secures/auto-add-roles.js": {
+    "11": [
+      "chalk.yellow('Setup Auto Add Roles Observer')"
+    ],
+    "28": [
+      "g.f('8a7a901580a827bf91544d7a4eb0527e')"
+    ],
+    "33": [
+      "Model.observe('after save')"
+    ],
+    "42": [
+      "debug('%s - Adding roles %j to \"%s:%s\"', ... )"
+    ],
+    "51": [
+      "debug('%s - Adding user \"%s\" to roles %j of \"%s:%s\"', ... )"
+    ]
+  },
+  "src/secures/build.js": {
+    "13": [
+      "debug('build models security for group models %j and resource models %j', ... )"
+    ],
+    "31": [
+      "deprecated('\"default-permissions\" has been deprecated, using \"permissions\" instead')"
+    ],
+    "91": [
+      "g.f('f976722fb6751e8da30089398df16b9c')"
+    ]
+  },
+  "src/secures/filters.js": {
+    "10": [
+      "chalk.yellow('Setup Filters Observer')"
+    ],
+    "32": [
+      "debug('ACCESS observer - Attaching access observer to %s', ... )"
+    ],
+    "37": [
+      "Model.observe('access')"
+    ],
+    "40": [
+      "debug('%s - Skip filter for options skipAccess has been set as true', ... )"
+    ],
+    "46": [
+      "debug('%s - Observing access for %s', ... )"
+    ],
+    "49": [
+      "debug('%s - Skip filter for no user attached', ... )"
+    ],
+    "55": [
+      "debug('%s - Skip filter for current user is admin', ... )"
+    ],
+    "60": [
+      "debug('%s - Appending to query: %j', ... )"
+    ],
+    "66": [
+      "debug('%s - Modified query for model %s: %j', ... )"
+    ],
+    "93": [
+      "g.f('1edeed6d6bf1a38b8965b4ef005e6ee6')"
+    ],
+    "97": [
+      "debug('%s - Group Type: %s, Group Key: %s, Where: %j', ... )"
+    ],
+    "101": [
+      "debug('%s - Find allowed resources with scope %j', ... )"
+    ],
+    "107": [
+      "debug('%s - Find allowed resources for model %s', ... )"
+    ]
+  },
+  "src/secures/load-abilities.js": {
+    "9": [
+      "debug('loading permissions from models: %j', ... )"
+    ],
+    "16": [
+      "debug('loaded actions \"%s\": %j', ... )"
+    ],
+    "18": [
+      "debug('failed loading actions \"%s\": %j', ... )"
+    ],
+    "22": [
+      "debug('loaded all permissions successfully')"
+    ]
+  },
+  "src/secures/role-resolver.js": {
+    "41": [
+      "registry.getModelByType('Role')"
+    ],
+    "59": [
+      "result.push(': ')"
+    ],
+    "78": [
+      "chalk.red('%s', ... )",
+      "chalk.red('admin')"
+    ],
+    "158": [
+      "debug('Fetching current group for model: %s, with id: %s, for method: %s', ... )"
+    ],
+    "163": [
+      "debug('Determined current group: %j, from model: %s, with id: %s, for method: %s', ... )"
+    ],
+    "171": [
+      "debug('Determined current group: %j, from remoting incoming data for model %s, for method %s', ... )"
+    ],
+    "182": [
+      "debug('Determined target group: %j, from incoming data for model: %s, for method: %s', ... )"
+    ]
+  }
+}
