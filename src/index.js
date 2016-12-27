@@ -16,9 +16,7 @@ module.exports = function (app, options) {
 		throw new Error('loopback-component-sacl requires loopback 2.0 or newer');
 	}
 
-	const sec = new Security(app, options);
-
-	app.sec = sec;
+	const sec = app.sec = new Security(app, options);
 
 	if (options.security === false) {
 		// disable security
