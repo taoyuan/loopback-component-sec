@@ -8,8 +8,8 @@ describe('actions', () => {
 		assert.deepEqual(Actions.METHODS_TO_ACTIONS, {
 			count: "read",
 			create: "write",
-			deleteById: "delete",
-			destroyById: "delete",
+			deleteById: "manage",
+			destroyById: "manage",
 			exists: "read",
 			find: "read",
 			findById: "read",
@@ -17,7 +17,7 @@ describe('actions', () => {
 			get: "read",
 			patchAttributes: "write",
 			patchOrCreate: "write",
-			removeById: "delete",
+			removeById: "manage",
 			updateOrCreate: "write",
 			upsert: "write",
 			upsertWithWhere: "write"

@@ -4,13 +4,12 @@ const _ = require('lodash');
 
 const READ = 'read';
 const WRITE = 'write';
-const DELETE = 'delete';
 const MANAGE = 'manage';
 
 const ACTIONS_TO_METHODS = {
 	[READ]: ['exists', 'get', 'find', 'findById', 'findOne', 'count'],
 	[WRITE]: ['create', 'updateOrCreate', 'upsertWithWhere', 'upsert', 'patchOrCreate', 'patchAttributes'],
-	[DELETE]: ['destroyById', 'deleteById', 'removeById'],
+	[MANAGE]: ['destroyById', 'deleteById', 'removeById'],
 };
 
 const METHODS_TO_ACTIONS = _(ACTIONS_TO_METHODS)
@@ -25,7 +24,7 @@ function fromMethod(method, defaults) {
 }
 
 module.exports = {
-	READ, WRITE, DELETE, MANAGE,
+	READ, WRITE, MANAGE,
 	ACTIONS_TO_METHODS,
 	METHODS_TO_ACTIONS,
 	fromMethod
