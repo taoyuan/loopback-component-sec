@@ -21,14 +21,14 @@ module.exports = function (sec) {
 	// ----------------------------------------------------------------
 
 	function transform(model) {
-		const securitySettings = model.settings.security || {};
+		const settings = model.settings.sec || model.settings.security || {};
 		const security = model.security = model.security || {};
 
-		let {roles, actions, permissions} = securitySettings;
+		let {roles, actions, permissions} = settings;
 
-		if (!permissions && _.has(securitySettings, 'default-permissions')) {
+		if (!permissions && _.has(settings, 'default-permissions')) {
 			deprecated('"default-permissions" has been deprecated, using "permissions" instead');
-			permissions = securitySettings['default-permissions'];
+			permissions = settings['default-permissions'];
 		}
 
 		if (!sec.isGroupModel(model)) {

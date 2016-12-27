@@ -40,7 +40,7 @@
 		}
 	],
 
-	"security": {
+	"sec": {
 		"actions": {
 			"read": "查看商品",
 			"write": {

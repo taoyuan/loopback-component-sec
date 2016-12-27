@@ -52,7 +52,7 @@
 			"permission": "ALLOW"
 		}
 	],
-	"security": {
+	"sec": {
 		"actions": {
 			"read": "查看店铺",
 			"write": {

@@ -47,7 +47,7 @@
       "permission": "ALLOW"
     }
   ],
-	"security": {
+	"sec": {
 	},
   "methods": {}
 }
