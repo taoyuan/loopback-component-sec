@@ -58,11 +58,7 @@ This is used to filter search results to ensure that only items that a user has 
 
 ### Usage
 
-...
-
-### How to Test
-
-Run one, or a combination of the following commands to lint and test your code:
+...Run one, or a combination of the following commands to lint and test your code:
 
 ```sh
 $ npm run lint          # Lint the source code with ESLint
