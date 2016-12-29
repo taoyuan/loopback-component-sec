@@ -18,17 +18,19 @@ module.exports = function (app, options) {
 
 	const sec = app.sec = new Security(app, options);
 
-	if (options.security === false) {
+	if (options.enabled === false) {
 		// disable security
 		return;
 	}
+
+	app.middleware('auth:after', require('./keepuser')(options));
 
 	sec.$promise = Promise.each([
 		require('./secures/build'),
 		// require('./secures/load-abilities'),
 		require('./secures/role-resolver'),
 		require('./secures/secure-models'),
-		require('./secures/auto-add-roles'),
-		// require('./secures/auto-add-permissions'),
+		require('./secures/add-roles'),
+		require('./secures/add-permissions')
 	], fn => fn(sec));
 };

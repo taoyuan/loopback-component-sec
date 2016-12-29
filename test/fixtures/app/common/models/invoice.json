@@ -3,51 +3,51 @@
   "base": "PersistedModel",
   "idInjection": false,
   "options": {
-    "validateUpsert": true
+	"validateUpsert": true
   },
   "properties": {
-		"id": {
-			"type": "string",
-			"id": true,
-			"generated": false
-		},
-    "storeId": {
-      "type": "string",
-      "required": true
-    },
-    "invoiceNumber": {
-      "type": "number",
-      "required": true
-    }
+	"id": {
+	  "type": "string",
+	  "id": true,
+	  "generated": false
+	},
+	"storeId": {
+	  "type": "string",
+	  "required": true
+	},
+	"invoiceNumber": {
+	  "type": "number",
+	  "required": true
+	}
   },
   "validations": [],
   "relations": {
-    "store": {
-      "type": "belongsTo",
-      "model": "Store",
-      "foreignKey": "storeId"
-    },
-    "transactions": {
-      "type": "hasMany",
-      "model": "Transaction",
-      "foreignKey": "invoiceId"
-    }
+	"store": {
+	  "type": "belongsTo",
+	  "model": "Store",
+	  "foreignKey": "storeId"
+	},
+	"transactions": {
+	  "type": "hasMany",
+	  "model": "Transaction",
+	  "foreignKey": "invoiceId"
+	}
   },
   "acls": [
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY"
-    },
-    {
-      "accessType": "*",
-      "principalType": "ROLE",
-      "principalId": "$nsec",
-      "permission": "ALLOW"
-    }
-  ],
-	"sec": {
+	{
+	  "accessType": "*",
+	  "principalType": "ROLE",
+	  "principalId": "$everyone",
+	  "permission": "DENY"
 	},
+	{
+	  "accessType": "*",
+	  "principalType": "ROLE",
+	  "principalId": "$nsec",
+	  "permission": "ALLOW"
+	}
+  ],
+  "sec": {
+  },
   "methods": {}
 }

@@ -1,62 +1,10 @@
 [
-	{
-		"id": "A",
-		"name": "Store A",
-		"_permissions": [
-			{
-				"subject": "SecRole:roleMemberA",
-				"actions": [
-					"READ",
-					"INVOICE:READ",
-					"TRANSACTION:READ"
-				]
-			},
-			{
-				"subject": "SecRole:roleManagerA",
-				"actions": [
-					"WRITE",
-					"PRODUCT:READ",
-					"PRODUCT:WRITE",
-					"INVOICE:WRITE",
-					"TRANSACTION:WRITE"
-				]
-			},
-			{
-				"subject": "SecRole:roleAdminA",
-				"actions": [
-					"*"
-				]
-			}
-		]
-	},
-	{
-		"id": "B",
-		"name": "Store B",
-		"_permissions": [
-			{
-				"subject": "SecRole:roleMemberB",
-				"actions": [
-					"READ",
-					"INVOICE:READ",
-					"TRANSACTION:READ"
-				]
-			},
-			{
-				"subject": "SecRole:roleManagerB",
-				"actions": [
-					"WRITE",
-					"PRODUCT:READ",
-					"PRODUCT:WRITE",
-					"INVOICE:WRITE",
-					"TRANSACTION:WRITE"
-				]
-			},
-			{
-				"subject": "SecRole:roleAdminB",
-				"actions": [
-					"*"
-				]
-			}
-		]
-	}
+  {
+	"id": "A",
+	"name": "Store A"
+  },
+  {
+	"id": "B",
+	"name": "Store B"
+  }
 ]

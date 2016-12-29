@@ -1,30 +1,34 @@
 [
-	{
-		"id": "ProductA1",
-		"name": "ProductA1",
-		"storeType": "Store",
-		"storeId": "A"
-	},
-	{
-		"id": "ProductA2",
-		"name": "ProductA2",
-		"storeType": "Store",
-		"storeId": "A",
-		"_permissions": [{
-			"subject": "SecRole:roleManagerA",
-			"actions": ["WRITE"]
-		}]
-	},
-	{
-		"id": "ProductB1",
-		"name": "ProductB1",
-		"storeType": "Store",
-		"storeId": "B"
-	},
-	{
-		"id": "ProductB2",
-		"name": "ProductB2",
-		"storeType": "Store",
-		"storeId": "B"
-	}
+  {
+	"id": "ProductA1",
+	"name": "ProductA1",
+	"storeType": "Store",
+	"storeId": "A"
+  },
+  {
+	"id": "ProductA2",
+	"name": "ProductA2",
+	"storeType": "Store",
+	"storeId": "A",
+	"_permissions": [
+	  {
+		"subject": "SecRole:roleManagerA",
+		"actions": [
+		  "WRITE"
+		]
+	  }
+	]
+  },
+  {
+	"id": "ProductB1",
+	"name": "ProductB1",
+	"storeType": "Store",
+	"storeId": "B"
+  },
+  {
+	"id": "ProductB2",
+	"name": "ProductB2",
+	"storeType": "Store",
+	"storeId": "B"
+  }
 ]

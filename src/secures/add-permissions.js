@@ -1,14 +1,14 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:auto-add-permissions');
+const debug = require('debug')('loopback:component:sec:add-permissions');
 const g = require('strong-globalize')();
 const chalk = require('chalk');
 
 module.exports = function (sec) {
-	debug(chalk.yellow('Setup Auto Add Permissions Observer'));
+	debug(chalk.yellow('Setup permissions adding observer for group models'));
 
 	const {app} = sec;
-	const models = sec.models;
+	const models = sec.groups;
 
 	models.forEach(attachAfterSaveObserver);
 

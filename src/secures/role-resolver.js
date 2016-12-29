@@ -89,6 +89,8 @@ module.exports = function (sec) {
 			]).then(([current, target]) => {
 				if (!current) {
 					// No group context was determined, so allow passthrough access.
+					// This allow all creation actions
+					// TODO create action check ?
 					debug(`${mmi} Could not find group, skipping ACL check on model ${chalk.blue(modelName)} for method ${chalk.blue.bold(method)}.`);
 					return true;
 				}
@@ -97,7 +99,7 @@ module.exports = function (sec) {
 					.then(allowed => {
 						if (!allowed) {
 							debug(`${mmi} Checking %s whether has permission %s in group %j`, userId, action, current);
-							return acl.scoped(current).findUserRoles(userId, true).then(roles => acl.can([userId, ...roles], current, action));
+							return acl.scoped(current).findUserRoles(userId, true).then(roles => acl.hasPermission([userId, ...roles], current, action));
 						}
 					})
 					.then(allowed => {
@@ -113,7 +115,7 @@ module.exports = function (sec) {
 
 						if (target && !_.isEqual(current, target)) {
 							return acl.scoped(target).findUserRoles(userId, true)
-								.then(roles => acl.can([userId, ...roles], target, action))
+								.then(roles => acl.hasPermission([userId, ...roles], target, action))
 								.then(allowed => {
 									debug(`${mmi} Attempting save into new target group, User %s is%s allowed in target group %j`, userId, allowed ? '' : ' not', target);
 									return allowed;
@@ -155,7 +157,7 @@ module.exports = function (sec) {
 		const {model, modelName, modelId, method, remotingContext} = context;
 
 		if (sec.isGroupModel(model)) {
-			return model.findById(modelId, {}, {secure: false});
+			return modelId && model.findById(modelId, {}, {secure: false});
 		}
 
 		return Promise.resolve().then(() => {

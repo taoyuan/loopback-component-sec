@@ -1,97 +1,97 @@
 {
-	"name": "Store",
-	"base": "PersistedModel",
-	"idInjection": false,
-	"options": {
-		"validateUpsert": true
+  "name": "Store",
+  "base": "PersistedModel",
+  "idInjection": false,
+  "options": {
+	"validateUpsert": true
+  },
+  "properties": {
+	"id": {
+	  "type": "string",
+	  "id": true,
+	  "generated": false
 	},
-	"properties": {
-		"id": {
-			"type": "string",
-			"id": true,
-			"generated": false
-		},
-		"name": {
-			"type": "string",
-			"required": true
-		}
+	"name": {
+	  "type": "string",
+	  "required": true
+	}
+  },
+  "validations": [],
+  "relations": {
+	"members": {
+	  "type": "hasMany",
+	  "model": "Account"
 	},
-	"validations": [],
-	"relations": {
-		"members": {
-			"type": "hasMany",
-			"model": "Account"
-		},
-		"invoices": {
-			"type": "hasMany",
-			"model": "Invoice",
-			"foreignKey": "storeId"
-		},
-		"transactions": {
-			"type": "hasMany",
-			"model": "Transaction",
-			"foreignKey": "storeId"
-		},
-		"products": {
-			"type": "hasMany",
-			"model": "Product",
-			"polymorphic": "store"
-		}
+	"invoices": {
+	  "type": "hasMany",
+	  "model": "Invoice",
+	  "foreignKey": "storeId"
 	},
-	"acls": [
-		{
-			"accessType": "*",
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "DENY"
-		},
-		{
-			"accessType": "*",
-			"principalType": "ROLE",
-			"principalId": "$nsec",
-			"permission": "ALLOW"
-		}
-	],
-	"sec": {
-		"actions": {
-			"read": "查看店铺",
-			"write": {
-				"title": "编辑店铺",
-				"methods": [
-					"create",
-					"updateAttributes",
-					"upsert"
-				]
-			},
-			"manage": "管理店铺"
-		},
-		"roles": {
-			"member": {
-				"title": "店铺成员",
-				"actions": [
-					"read"
-				]
-			},
-			"manager": {
-				"title": "店铺经理",
-				"actions": [
-					"write",
-					"delete"
-				],
-				"inherits": [
-					"member"
-				]
-			},
-			"admin": {
-				"title": "店铺管理员",
-				"actions": [
-					"*"
-				],
-				"inherits": [
-					"manager"
-				]
-			}
-		}
+	"transactions": {
+	  "type": "hasMany",
+	  "model": "Transaction",
+	  "foreignKey": "storeId"
 	},
-	"methods": {}
+	"products": {
+	  "type": "hasMany",
+	  "model": "Product",
+	  "polymorphic": "store"
+	}
+  },
+  "acls": [
+	{
+	  "accessType": "*",
+	  "principalType": "ROLE",
+	  "principalId": "$everyone",
+	  "permission": "DENY"
+	},
+	{
+	  "accessType": "*",
+	  "principalType": "ROLE",
+	  "principalId": "$nsec",
+	  "permission": "ALLOW"
+	}
+  ],
+  "sec": {
+	"actions": {
+	  "read": "查看店铺",
+	  "write": {
+		"title": "编辑店铺",
+		"methods": [
+		  "create",
+		  "updateAttributes",
+		  "upsert"
+		]
+	  },
+	  "manage": "管理店铺"
+	},
+	"roles": {
+	  "member": {
+		"title": "店铺成员",
+		"actions": [
+		  "read"
+		]
+	  },
+	  "manager": {
+		"title": "店铺经理",
+		"actions": [
+		  "write",
+		  "delete"
+		],
+		"inherits": [
+		  "member"
+		]
+	  },
+	  "admin": {
+		"title": "店铺管理员",
+		"actions": [
+		  "*"
+		],
+		"inherits": [
+		  "manager"
+		]
+	  }
+	}
+  },
+  "methods": {}
 }

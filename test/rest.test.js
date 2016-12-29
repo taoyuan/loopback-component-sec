@@ -2,6 +2,7 @@
 
 /* eslint max-nested-callbacks: 0 */
 const _ = require('lodash');
+const PromiseA = require('bluebird');
 const path = require('path');
 const assert = require('chai').assert;
 const request = require('supertest-as-promised');
@@ -91,6 +92,32 @@ describe('REST API', () => {
 					assert.lengthOf(res.body, 2);
 					assert.property(res.body[0], 'name', 'ProductA1');
 					assert.property(res.body[1], 'name', 'ProductA2');
+				});
+		});
+	});
+
+	describe('Rest with create group', () => {
+		before(s.setup);
+		after(s.teardown);
+
+		it('should add default roles and assign current user to admin role', () => {
+			const {acl} = app.sec;
+			const user = s.users.userAdminA;
+			return logInAs(user.username)
+				.then(res => json('post', `/api/stores?access_token=${res.body.id}`)
+					.send({name: 'C'})
+					.expect(200))
+				.then(res => {
+					const scoped = acl.scoped('Store:' + res.body.id);
+					return PromiseA.each([
+						// Check whether default roles has been added for group model
+						() => scoped.findRoles().then(roles => {
+							assert.lengthOf(roles, 3);
+							assert.sameDeepMembers(roles.map(r => r.name), ['member', 'manager', 'admin']);
+						}),
+						// Check whether creator has been added to admin role
+						() => assert.eventually.isTrue(scoped.hasRoles('userAdminA', 'admin')),
+					], fn => fn());
 				});
 		});
 	});

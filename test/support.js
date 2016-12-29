@@ -4,8 +4,7 @@ const PromiseA = require('bluebird');
 const _ = require('lodash');
 const path = require('path');
 const chai = require('chai');
-// chai.use(require('dirty-chai'));
-chai.use(require('sinon-chai'));
+chai.use(require('chai-as-promised')).use(require('sinon-chai'));
 // require('mocha-sinon');
 const request = require('supertest-as-promised');
 

@@ -53,29 +53,38 @@ module.exports = function (sec) {
 	}
 
 	function buildGroupRoles(group, resources) {
-		const groupSecurity = group.security;
+		const gs = group.security;
 		_.forEach(resources, resource => {
 			if (group === resource) return;
-			const resourceSecurity = resource.security;
-			if (resourceSecurity.actions) {
-				const resourceActions = _.transform(resourceSecurity.actions, (result, action, key) => {
+
+			gs.actions = _.fromPairs(_.toPairs(gs.actions).map(([k, v]) => {
+				k = _.toUpper(k);
+				if (_.get(v, 'name')) {
+					v.name = _.toUpper(v.name);
+				}
+				return [k, v];
+			}));
+
+			const rs = resource.security;
+			if (rs.actions) {
+				const resourceActions = _.transform(rs.actions, (result, action, key) => {
 					key = _.toUpper(resource.modelName + ":" + key);
 					result[key] = Object.assign({}, action, {name: key});
 					return result;
 				}, {});
-				groupSecurity.actions = Object.assign(groupSecurity.actions || {}, resourceActions);
+				gs.actions = Object.assign(gs.actions || {}, resourceActions);
 			}
 
-			if (!resourceSecurity.permissions) return;
+			if (!rs.permissions) return;
 
-			_.forEach(groupSecurity.roles, role => {
-				let permittedActions = resourceSecurity.permissions[role.name];
+			_.forEach(gs.roles, role => {
+				let permittedActions = rs.permissions[role.name];
 				if (!permittedActions) return;
 				if (permittedActions.includes('*')) {
-					permittedActions = Object.keys(groupSecurity.actions);
+					permittedActions = Object.keys(rs.actions);
 				}
-				permittedActions = _.map(permittedActions, permit => _.toUpper(resource.modelName + ":" + permit));
-				role.actions = _.concat(role.actions, permittedActions);
+				permittedActions = _.map(permittedActions, permit => resource.modelName + ":" + permit);
+				role.actions = _.concat(role.actions, permittedActions).map(_.toUpper);
 			});
 		});
 	}
