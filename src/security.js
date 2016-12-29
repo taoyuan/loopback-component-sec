@@ -59,7 +59,7 @@ class Security {
 		opts.currentUser = () => {
 			const ctx = LoopbackContext.getCurrentContext();
 			const user = ctx && ctx.get('currentUser');
-			debug('got current user from context: %s', chalk.bold.bgBlue(user && user.name));
+			debug('got current user from context: %s', chalk.bold.bgBlue(user && user.username));
 			return user || null;
 		};
 
@@ -74,7 +74,7 @@ class Security {
 			const modelName = modelClass.modelName;
 			const options = opts.resources[modelName] || DEFAULT_GROUP_OPTS;
 			const rel = modelClass.relations[options.rel];
-			if (rel) {
+			if (rel && (opts.resources[modelName] || !this.isGroupModel(modelClass))) {
 				modelClass.__aclopts = options;
 				const relModel = rel.modelThrough || rel.modelTo;
 				return rel.type === 'belongsTo' && ((relModel && _.includes(this.groups, relModel)) || rel.polymorphic);
