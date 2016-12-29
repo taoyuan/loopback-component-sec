@@ -56,19 +56,6 @@ exports.getGroup = function (Model, rel, data) {
 	return {type, id};
 };
 
-exports.wrapGroup = function (owner) {
-	if (owner && owner.type) {
-		// owner.type could be Model
-		const type = _.get(owner.type, 'modelName') || owner.type;
-		return type + (_.isNil(owner.id) ? '' : ':' + owner.id);
-	}
-};
-
-exports.unwrapGroup = function (data) {
-	const parts = _.split(data, ':');
-	return {type: parts[0], id: parts[1]};
-};
-
 exports.toModelsNames = function (models) {
 	return _.map(models, model => typeof model === 'function' ? model.modelName : model);
 };
