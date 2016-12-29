@@ -17,10 +17,10 @@ module.exports = function (sec) {
 	function attachAfterSaveObserver(Model) {
 		if (typeof Model.observe !== 'function') return;
 
-		debug('Attaching Auto Add Roles Observer to %s', Model.modelName);
+		debug('Attaching add roles observer to %s', Model.modelName);
 
 		const modelName = Model.modelName;
-		const mni = chalk.blue(modelName);
+		const mni = chalk.green(modelName);
 
 		Model.observe('after save', (ctx, next) => {
 			// only allow default permission for new instance
@@ -28,11 +28,14 @@ module.exports = function (sec) {
 				return next();
 			}
 
-			const currentUserId = sec.getCurrentUserId(ctx.options);
-			const roles = Object.keys(Model.security.roles);
+			debug('%s - begin', mni);
 
+			const currentUserId = sec.getCurrentUserId(ctx.options);
 			debug('%s - Current user id: %s', mni, currentUserId);
+
+			const roles = Object.keys(Model.security.roles);
 			debug('%s - Add roles %j to "%s:%s"', mni, roles, modelName, ctx.instance.id);
+
 			Promise.map(roles, role => acl.scoped(ctx.instance).addRole(role))
 				.then(roles => {
 					if (currentUserId) {

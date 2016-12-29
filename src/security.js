@@ -6,7 +6,6 @@ const assert = require('assert');
 const nsec = require('nsec');
 const LoopbackContext = require('loopback-context');
 const PromiseA = require('bluebird');
-const chalk = require('chalk');
 
 const Actions = require('./actions');
 const utils = require('./utils');
@@ -59,7 +58,7 @@ class Security {
 		opts.currentUser = () => {
 			const ctx = LoopbackContext.getCurrentContext();
 			const user = ctx && ctx.get('currentUser');
-			debug('got current user from context: %s', chalk.bold.bgBlue(user && user.username));
+			debug('try to get current user from context: %o', JSON.stringify(user));
 			return user || null;
 		};
 

@@ -23,7 +23,7 @@ module.exports = function (sec) {
 		debug(g.f('Attaching Auto Add Permissions Observer to %s', Model.modelName));
 
 		const modelName = Model.modelName;
-		const mni = chalk.blue(modelName);
+		const mni = chalk.green(modelName);
 
 		Model.observe('after save', (ctx, next) => {
 			// only allow default permission for new instance

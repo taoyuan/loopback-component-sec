@@ -52,8 +52,8 @@ module.exports = function (sec) {
 		const remotingData = _.get(context, `remotingContext.args.data`);
 
 		// model method info
-		const mm = chalk.blue(modelName + '.' + method);
-		const mmi = chalk.blue(modelName + '.' + method) + ' - ';
+		const mm = chalk.green(modelName + '.' + method);
+		const mmi = chalk.green(modelName + '.' + method) + ' - ';
 
 		const action = resolveAction(modelClass, method);
 

@@ -27,7 +27,7 @@ module.exports = function (sec) {
 		debug('Attaching group filter access observer to %s', Model.modelName);
 
 		const modelName = Model.modelName;
-		const mni = chalk.blue(modelName);
+		const mni = chalk.green(modelName);
 
 		Model.observe('access', (ctx, next) => {
 			const {options, hookState} = ctx;
@@ -39,10 +39,10 @@ module.exports = function (sec) {
 
 			const currentUserId = sec.getCurrentUserId(options);
 
-			debug('%s - Filter access for %s', mni, modelName);
-
-			if (!currentUserId) {
-				debug('%s - Skip filter for no user attached', mni);
+			if (currentUserId) {
+				debug('%s - Filtering access', mni);
+			} else {
+				debug('%s - Skip filter access for no user attached', mni);
 				return next();
 			}
 
