@@ -45,7 +45,7 @@ module.exports = function (sec) {
 				.then(roles => {
 					if (roles && roles.length) {
 						debug('%s - Assign current user "%s" to roles %j of "%s:%s"', mni, currentUserId, _.map(roles, r => r.name), modelName, ctx.instance.id);
-						return acl.scoped({type: modelName, id: ctx.instance.id}).assignRolesUsers(roles, currentUserId);
+						return acl.scoped({type: modelName, id: ctx.instance.id}).assignMemberships(currentUserId, roles, 'active');
 					}
 				})
 				.nodeify(next);
