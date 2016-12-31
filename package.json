@@ -33,7 +33,7 @@
     "debug": "^2.6.0",
     "depd": "^1.1.0",
     "lodash": "^4.17.3",
-    "nsec": "^0.2.1",
+    "nsec": "^0.3.0",
     "strong-globalize": "^2.8.0"
   },
   "devDependencies": {
@@ -58,7 +58,7 @@
     "loopback-datasource-juggler": "^3.1.1",
     "mocha": "^3.2.0",
     "nyc": "^10.0.0",
-    "sinon": "^1.17.6",
+    "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",
     "strong-error-handler": "^1.1.1",
     "supertest": "^2.0.1",

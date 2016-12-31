@@ -98,7 +98,7 @@ module.exports = function (sec) {
 
 		const mni = chalk.blue(Model.modelName);
 		debug('%s - Group Type: %s, Group Key: %s, Where: %j', mni, groupType, groupKey, where);
-		return acl.scoped(groupType).findMemberships(userId, '*', 'active').then(mappings => {
+		return acl.scoped(groupType).findMemberships({userId, state: 'active'}).then(mappings => {
 			const answer = {[groupKey]: {inq: _.uniq(_.map(mappings, r => r.scopeId))}};
 			// if (relKey.keyTypeWhere) {
 			// 	answer[relKey.keyTypeWhere] = groupType;
