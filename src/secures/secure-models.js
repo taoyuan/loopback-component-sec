@@ -15,8 +15,8 @@ module.exports = function (sec) {
 	// Filter models
 	models.filter(attachAccessObserver);
 
-	// Secure models with row level access control
-	models.filter(m => !m.__aclopts || m.__aclopts.rowlevel).forEach(secure);
+	// Secure group models and resource models with row level access control
+	models.filter(m => sec.isGroupModel(m) || !m.__aclopts || m.__aclopts.rowlevel).forEach(secure);
 
 	function secure(Model) {
 		debug('Secure model %s with row level access control', Model.modelName);
