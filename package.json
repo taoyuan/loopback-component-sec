@@ -32,8 +32,8 @@
     "chalk": "^1.1.3",
     "debug": "^2.6.0",
     "depd": "^1.1.0",
-    "lodash": "^4.17.3",
-    "nsec": "^0.3.0",
+    "lodash": "^4.17.4",
+    "nsec": "^0.3.4",
     "strong-globalize": "^2.8.0"
   },
   "devDependencies": {

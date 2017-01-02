@@ -163,7 +163,7 @@ class Security {
 				if (!roles.length) {
 					debug('allowDefaultPermissions - No roles %j found for %s:%s', rolesNames, groupModelName, groupId);
 				}
-				return PromiseA.map(roles, role => {
+				return PromiseA.mapSeries(roles, role => {
 					const actions = _.map(isGroupModel ? settings.roles[role.name].actions : settings.permissions[role.name], _.toUpper);
 					debug('allowDefaultPermissions - Allowing %s:%s:%s to access %s:%s with permissions %j', groupModelName, groupId, role.name, modelName, inst.id, actions);
 					return acl.allow(role, inst, actions);
