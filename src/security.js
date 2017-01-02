@@ -71,10 +71,9 @@ class Security {
 
 		this.resources = _.filter(this.app.models, modelClass => {
 			const modelName = modelClass.modelName;
-			const options = opts.resources[modelName] || DEFAULT_GROUP_OPTS;
-			const rel = modelClass.relations[options.rel];
-			if (rel && (opts.resources[modelName] || !this.isGroupModel(modelClass))) {
-				modelClass.__aclopts = options;
+			const aclopts = modelClass.__aclopts = opts.resources[modelName] || DEFAULT_GROUP_OPTS;
+			const rel = modelClass.relations[aclopts.rel];
+			if (rel) { // } && (opts.resources[modelName] || !this.isGroupModel(modelClass))) {
 				const relModel = rel.modelThrough || rel.modelTo;
 				return rel.type === 'belongsTo' && ((relModel && _.includes(this.groups, relModel)) || rel.polymorphic);
 			}
