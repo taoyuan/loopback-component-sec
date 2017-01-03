@@ -71,9 +71,10 @@ class Security {
 
 		this.resources = _.filter(this.app.models, modelClass => {
 			const modelName = modelClass.modelName;
-			const aclopts = modelClass.__aclopts = opts.resources[modelName] || DEFAULT_GROUP_OPTS;
+			const aclopts = opts.resources[modelName] || DEFAULT_GROUP_OPTS;
 			const rel = modelClass.relations[aclopts.rel];
 			if (rel) { // } && (opts.resources[modelName] || !this.isGroupModel(modelClass))) {
+				modelClass._aclopts = aclopts;
 				const relModel = rel.modelThrough || rel.modelTo;
 				return rel.type === 'belongsTo' && ((relModel && _.includes(this.groups, relModel)) || rel.polymorphic);
 			}
@@ -123,7 +124,7 @@ class Security {
 	relname(model) {
 		if (!model) return;
 		const Model = _.isFunction(model) ? model : model.constructor;
-		return _.get(Model, '__aclopts.rel') || this.opts.rel;
+		return _.get(Model, '_aclopts.rel') || this.opts.rel;
 	}
 
 	allowDefaultPermissions(inst) {
