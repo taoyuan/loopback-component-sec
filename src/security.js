@@ -29,7 +29,7 @@ class Security {
 			}
 		});
 
-		const DEFAULT_GROUP_OPTS = {rel: opts.rel, rowlevel: false};
+		const DEFAULT_GROUP_OPTS = {rel: opts.rel, rowlevel: undefined};
 
 		opts.groups = utils.sureArray(opts.groups || opts.groupModels);
 		opts.defaultCreatorRoles = utils.sureArray(opts.defaultCreatorRoles);
