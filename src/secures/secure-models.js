@@ -86,12 +86,12 @@ module.exports = function (sec) {
 		const rel = sec.relname(Model);
 		where = where || {};
 		let groupType, groupKey, relKey;
-		if (sec.isGroupModel(Model)) {
-			groupType = Model.modelName;
-			groupKey = Model.getIdName();
-		} else if (relKey = utils.getRelKey(Model, rel)) {
+		if (relKey = utils.getRelKey(Model, rel)) {
 			groupType = relKey.keyType || where[relKey.keyTypeWhere];
 			groupKey = relKey.keyId;
+		} else if (sec.isGroupModel(Model)) {
+			groupType = Model.modelName;
+			groupKey = Model.getIdName();
 		} else {
 			throw new Error(g.f('ACCESS denied: Model %s has no relation %s to group', Model.modelName, rel));
 		}
