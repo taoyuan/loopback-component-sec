@@ -16,11 +16,11 @@ module.exports = function (sec) {
 	models.filter(attachAccessObserver);
 
 	// Secure group models and resource models with row level access control
-	models.filter(m => _.get(m, '_aclopts.rowlevel') === true || (sec.isGroupModel(m) && !m._aclopts)).forEach(secure);
+	models.forEach(m => secure(m, _.get(m, '_aclopts.rowlevel') === true || (sec.isGroupModel(m) && !m._aclopts)));
 
-	function secure(Model) {
-		debug('Secure model %s with row level access control', Model.modelName);
-		acl.secure(Model);
+	function secure(Model, rowlevel) {
+		debug('Secure model %s with %j', Model.modelName, {rowlevel});
+		acl.secure(Model, {rowlevel});
 	}
 
 	function attachAccessObserver(Model) {
