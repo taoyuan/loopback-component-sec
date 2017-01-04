@@ -143,9 +143,9 @@ module.exports = function (sec) {
 
 		let prefix = '';
 		if (resolved.rel) {
-			const Group = _.get(Model.relations[resolved.rel], 'modelTo');
-			if (Group && !sec.isGroupModel(Group)) {
-				prefix = Model.modelName + ':';
+			const RelModel = _.get(Model.relations[resolved.rel], 'modelTo');
+			if (RelModel && !sec.isGroupModel(RelModel)) {
+				prefix = RelModel.modelName + ':';
 			}
 		}
 
