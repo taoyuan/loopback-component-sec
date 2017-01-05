@@ -12,7 +12,10 @@
 	"resources": {
 	  "Product": {
 		"rel": "owner",
-		"polymorphicTypes": ["Store", "User"],
+		"polymorphicTypes": [
+		  "Store",
+		  "User"
+		],
 		"rowlevel": true
 	  }
 	}
