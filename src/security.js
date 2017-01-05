@@ -150,7 +150,7 @@ class Security {
 		} else {
 			assert(typeof inst[rel] === 'function', 'resource has no relation ' + rel);
 			rolesNames = Object.keys(settings.permissions);
-			promise = PromiseA.fromCallback(cb => inst[rel]({}, {skipAccess: true}, cb)).catch(err => {
+			promise = PromiseA.fromCallback(cb => inst[rel]({}, {skipGroupLevelFilter: true}, cb)).catch(err => {
 				if (/Polymorphic model not found/.test(err.message)) {
 					return;
 				}
@@ -228,7 +228,7 @@ class Security {
 	// 		}
 	// 		offset = offset || 0;
 	// 		const filter = limit ? {limit, offset} : null;
-	// 		return PromiseA.resolve(Model.find(filter, {skipAccess: true})).then(instances => {
+	// 		return PromiseA.resolve(Model.find(filter, {skipGroupLevelFilter: true})).then(instances => {
 	// 			if (_.isEmpty(instances)) return;
 	// 			return PromiseA.map(instances, updateOne).then(() => {
 	// 				if (!filter || instances.length < limit) return;
@@ -247,7 +247,7 @@ class Security {
 	// 	function update(Model, limit, offset) {
 	// 		offset = offset || 0;
 	// 		const filter = limit ? {limit, offset} : null;
-	// 		return PromiseA.resolve(Model.find(filter, {skipAccess: true})).then(instances => {
+	// 		return PromiseA.resolve(Model.find(filter, {skipGroupLevelFilter: true})).then(instances => {
 	// 			if (_.isEmpty(instances)) return;
 	// 			return PromiseA.map(instances, updateOne).then(() => {
 	// 				if (!filter || instances.length < limit) return;

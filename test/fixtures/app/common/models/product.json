@@ -18,7 +18,7 @@
   },
   "validations": [],
   "relations": {
-	"store": {
+	"owner": {
 	  "type": "belongsTo",
 	  "polymorphic": {
 		"idType": "string"

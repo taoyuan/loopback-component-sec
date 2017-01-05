@@ -27,9 +27,9 @@ module.exports = function (app, options) {
 
 	sec.$promise = Promise.each([
 		require('./secures/build'),
-		// require('./secures/load-abilities'),
 		require('./secures/role-resolver'),
-		require('./secures/secure-models'),
+		require('./secures/secure-group-level'),
+		require('./secures/secure'),
 		require('./secures/add-roles'),
 		require('./secures/add-permissions')
 	], fn => fn(sec));

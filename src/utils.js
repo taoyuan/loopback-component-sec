@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-exports.getRelKey = function (Model, rel) {
+exports.getRelInfo = function (Model, rel) {
 	const relation = Model.relations[rel];
 
 	if (!relation) return;
@@ -10,13 +10,13 @@ exports.getRelKey = function (Model, rel) {
 	if (relation.polymorphic) {
 		const {discriminator, foreignKey} = relation.polymorphic;
 		return {
-			keyId: foreignKey,
-			keyTypeWhere: discriminator
+			typeName: discriminator,
+			idName: foreignKey
 		};
 	} else {
 		return {
-			keyType: relation.modelTo && relation.modelTo.modelName,
-			keyId: relation.keyFrom
+			typeValue: relation.modelTo && relation.modelTo.modelName,
+			idName: relation.keyFrom
 		};
 	}
 };

@@ -2,14 +2,14 @@
   {
 	"id": "ProductA1",
 	"name": "ProductA1",
-	"storeType": "Store",
-	"storeId": "A"
+	"ownerType": "Store",
+	"ownerId": "A"
   },
   {
 	"id": "ProductA2",
 	"name": "ProductA2",
-	"storeType": "Store",
-	"storeId": "A",
+	"ownerType": "Store",
+	"ownerId": "A",
 	"_permissions": [
 	  {
 		"subject": "SecRole:roleManagerA",
@@ -22,13 +22,19 @@
   {
 	"id": "ProductB1",
 	"name": "ProductB1",
-	"storeType": "Store",
-	"storeId": "B"
+	"ownerType": "Store",
+	"ownerId": "B"
   },
   {
 	"id": "ProductB2",
 	"name": "ProductB2",
-	"storeType": "Store",
-	"storeId": "B"
+	"ownerType": "Store",
+	"ownerId": "B"
+  },
+  {
+	"id": "ProductPrivate",
+	"name": "ProductPrivate",
+	"ownerType": "Account",
+	"ownerId": "userMemberA"
   }
 ]

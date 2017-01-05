@@ -130,7 +130,7 @@
       "Model.observe('access')"
     ],
     "40": [
-      "debug('%s - Skip filter for options skipAccess has been set as true', ... )"
+      "debug('%s - Skip filter for options skipGroupLevelFilter has been set as true', ... )"
     ],
     "46": [
       "debug('%s - Observing access for %s', ... )"

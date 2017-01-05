@@ -50,17 +50,28 @@ describe('REST API', () => {
 	});
 
 	describe('Rest with user authenticated', () => {
-		_.values(s.users).forEach(ltWithUser);
+		_.values(s.users).forEach(itWithUser);
 	});
 
 	describe('Rest with row level access control', () => {
 		before(s.setup);
 		after(s.teardown);
 
+		it('should get products without group type specified', () => {
+			const user = s.users.userMemberA;
+			return logInAs(user.username)
+				.then(res => json('get', `/api/products?access_token=${res.body.id}`)
+					.expect(200))
+				.then(res => {
+					assert.isArray(res.body);
+					assert.lengthOf(res.body, 2);
+				});
+		});
+
 		it('should get products allowed for non permission restrict', () => {
 			const user = s.users.userMemberA;
 			return logInAs(user.username)
-				.then(res => json('get', `/api/products?filter[where][storeType]=Store&access_token=${res.body.id}`)
+				.then(res => json('get', `/api/products?filter[where][ownerType]=Store&access_token=${res.body.id}`)
 					.expect(200))
 				.then(res => {
 					assert.isArray(res.body);
@@ -72,7 +83,7 @@ describe('REST API', () => {
 		it('should get all products allowed for permission restrict', () => {
 			const user = s.users.userManagerA;
 			return logInAs(user.username)
-				.then(res => json('get', `/api/products?filter[where][storeType]=Store&access_token=${res.body.id}`)
+				.then(res => json('get', `/api/products?filter[where][ownerType]=Store&access_token=${res.body.id}`)
 					.expect(200))
 				.then(res => {
 					assert.isArray(res.body);
@@ -85,7 +96,7 @@ describe('REST API', () => {
 		it('should get all products allowed for parent roles', () => {
 			const user = s.users.userAdminA;
 			return logInAs(user.username)
-				.then(res => json('get', `/api/products?filter[where][storeType]=Store&access_token=${res.body.id}`)
+				.then(res => json('get', `/api/products?filter[where][ownerType]=Store&access_token=${res.body.id}`)
 					.expect(200))
 				.then(res => {
 					assert.isArray(res.body);
@@ -123,7 +134,7 @@ describe('REST API', () => {
 	});
 });
 
-function ltWithUser(user) {
+function itWithUser(user) {
 	describe(`${user.username} (User with ${user.abilities.join(', ')} permissions):`, () => {
 		before(s.setup);
 		after(s.teardown);

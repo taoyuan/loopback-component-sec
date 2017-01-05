@@ -10,10 +10,9 @@
 	  "Store"
 	],
 	"resources": {
-	  "Account": {
-		"rel": "owner"
-	  },
 	  "Product": {
+		"rel": "owner",
+		"polymorphicTypes": ["Store", "User"],
 		"rowlevel": true
 	  }
 	}
