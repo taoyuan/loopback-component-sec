@@ -720,5 +720,35 @@ function itWithUser(user) {
 			});
 		});
 		// end destroyById,
+
+		// custom model instance get
+		describe('custom model instance get', () => {
+			if (_.includes(user.abilities, 'update')) {
+				it('should edit a product', () => {
+					return logInAs(user.username)
+						.then(res => json('patch', `/api/products/A/ProductA1?access_token=${res.body.id}`)
+							.send({data: {description: 'Test product'}})
+							.expect(200))
+						.then(res => {
+							assert.isObject(res.body);
+						});
+				});
+			} else {
+				it('should not edit a product', () => {
+					return logInAs(user.username)
+						.then(res => json('patch', `/api/products/A/ProductA1?access_token=${res.body.id}`)
+							.send({data: {description: 'Test product'}})
+							.expect(401));
+				});
+			}
+
+			it('should not edit another product', () => {
+				return logInAs(user.username)
+					.then(res => json('patch', `/api/products/B/ProductB1?access_token=${res.body.id}`)
+						.send({data: {description: 'Test product'}})
+						.expect(401));
+			});
+		});
+		// end custom model instance get
 	});
 }

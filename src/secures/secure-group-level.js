@@ -13,7 +13,7 @@ module.exports = function (sec) {
 
 	const {acl, app} = sec;
 
-	sec.models.map(Model => {
+	sec.models.forEach(Model => {
 		debug('Attaching group level filter for %s', Model.modelName);
 
 		const modelName = Model.modelName;

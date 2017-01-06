@@ -73,7 +73,7 @@ class Security {
 			const modelName = modelClass.modelName;
 			let aclopts = opts.resources[modelName];
 			if (aclopts === false || (!aclopts && this.isGroupModel(modelClass))) {
-				return false
+				return false;
 			}
 			if (!_.isObject(aclopts)) {
 				aclopts = {};
@@ -115,7 +115,7 @@ class Security {
 
 		assert(_.isObject(method), 'method is a required argument and must be a RemoteMethod object');
 
-		const action = _.find(Model.actions, action => _.includes(action.methods, method.name));
+		const action = _.find(_.get(Model, 'security.actions'), action => _.includes(action.methods, method.name));
 		if (action) return action.name;
 		return Actions.fromMethod(method.name, Actions.MANAGE);
 	}

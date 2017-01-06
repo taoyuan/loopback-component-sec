@@ -4,7 +4,6 @@ const debug = require('debug')('loopback:component:sec:secure');
 const g = require('strong-globalize')();
 const _ = require('lodash');
 const chalk = require('chalk');
-const utils = require('../utils');
 
 module.exports = function (sec) {
 	debug(chalk.yellow('Secure Models'));

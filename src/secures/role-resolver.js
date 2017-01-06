@@ -152,57 +152,65 @@ module.exports = function (sec) {
 		return _.toUpper(prefix + sec.getActionForMethod(Model, resolved.method));
 	}
 
-	function getCurrentGroup(context) {
-		const {rel} = sec.opts;
-		const {model, modelName, modelId, method, remotingContext} = context;
+	function getCurrentGroup(ctx) {
+		const {model, modelName, modelId, method, remotingContext} = ctx;
+		const rel = _.get(model, '_aclopts.rel') || sec.opts.rel;
 
 		if (sec.isGroupModel(model)) {
 			return modelId && model.findById(modelId, {}, {secure: false});
 		}
 
 		return Promise.resolve().then(() => {
+			let promise = Promise.resolve();
+
 			if (modelId) {
 				debug('Fetching current group for model: %s, with id: %s, for method: %s', modelName, modelId, method);
-
-				return model.findById(modelId, {}, {secure: false}).then(inst => {
-					if (inst) {
-						const group = utils.getGroup(model, rel, inst);
-						debug('Determined current group: %j, from model: %s, with id: %s, for method: %s', group, modelName, modelId, method);
-						return resolveModelInstance(group);
-					}
-				});
+				promise = promise.then(() => model.findById(modelId, {}, {secure: false}));
+			} else {
+				const m = model[method];
+				if (m && m.get) {
+					promise = promise.then(() => m.get(ctx.remotingContext));
+				}
 			}
-		}).then(group => {
-			if (group) return group;
-			if (group = utils.getGroup(model, rel, _.get(remotingContext, 'args.data'))) {
-				debug('Determined current group: %j, from remoting incoming data for model %s, for method %s', group, modelName, method);
-				return resolveModelInstance(group);
-			}
+			return promise.then(instance => {
+				instance = instance || _.get(remotingContext, 'args.data');
+				const group = utils.getGroup(model, rel, instance);
+				if (group) {
+					debug('Determined current group: %j, from remoting incoming data for model %s, for method %s', group, modelName, method);
+					return resolveModelInstance(group);
+				}
+			});
 		});
 	}
 
-	function getTargetGroup(context) {
+	function getTargetGroup(ctx) {
 		const {rel} = sec.opts;
-		const {model, modelName, method, remotingContext} = context;
-		const group = utils.getGroup(model, rel, _.get(remotingContext, 'args.data'));
-		if (group) {
-			debug('Determined target group: %j, from incoming data for model: %s, for method: %s', group, modelName, method);
+		const {model, modelName, method, remotingContext} = ctx;
+		const m = model[method];
+		let promise;
+		if (m && m.getTarget) {
+			promise = Promise.resolve(m.getTarget(ctx.remotingContext));
+		} else {
+			promise = Promise.resolve(_.get(remotingContext, 'args.data'));
 		}
-		return resolveModelInstance(group);
+		return promise.then(instance => {
+			const group = utils.getGroup(model, rel, instance);
+			if (group) {
+				debug('Determined target group: %j, from incoming data for model: %s, for method: %s', group, modelName, method);
+			}
+			return resolveModelInstance(group);
+		});
 	}
 
-	function resolveModelInstance(data) {
-		if (!data) {
-			return data;
+	function resolveModelInstance(group) {
+		if (_.isObject(group) && !_.isNil(group.type) && !_.isNil(group.id)) {
+			const Model = app.registry.getModel(group.type);
+			if (!Model) {
+				throw new Error('Can not find model: ' + group.type);
+			}
+			return Promise.resolve(Model.findById(group.id, {}, {secure: false}));
 		}
-		if (!_.isObject(data) || _.isNil(data.type) || _.isNil(data.id)) {
-			// throw new Error('Invalid parameter, should be {type: String, id: String|Number}: ' + data);
-			return Promise.resolve();
-		}
-		const Model = app.loopback.getModel(data.type);
-		if (!Model) {
-			throw new Error('Can not find model: ' + data.type);
-		}
-		return Promise.resolve(Model.findById(data.id, {}, {secure: false}));
+
+		return Promise.resolve();
 	}
 };
