@@ -78,20 +78,19 @@ module.exports = function (sec) {
 		where = where || {};
 		let groupTypeValues, groupIdName, rel;
 		if (rel = utils.getRelInfo(Model, relname)) {
-			groupTypeValues = rel.typeValue || where[rel.typeName];
 			groupIdName = rel.idName;
+			groupTypeValues = rel.typeValue || where[rel.typeName];
+			if (_.isEmpty(groupTypeValues) && rel.typeName) {
+				groupTypeValues = _.get(Model, '_aclopts.polymorphicTypes');
+			}
 		} else if (sec.isGroupModel(Model)) {
-			groupTypeValues = Model.modelName;
 			groupIdName = Model.getIdName();
+			groupTypeValues = Model.modelName;
 		} else {
 			throw new Error(g.f('ACCESS denied: Model %s has no relation %s to group', Model.modelName, relname));
 		}
 
 		groupTypeValues = arrify(groupTypeValues);
-
-		if (_.isEmpty(groupTypeValues) && rel.typeName) {
-			groupTypeValues = arrify(_.get(Model, '_aclopts.polymorphicTypes'));
-		}
 
 		const mni = chalk.blue(Model.modelName);
 		debug('%s - Group Type Values: %s, Group Id Name: %s, Where: %j', mni, groupTypeValues, groupIdName, where);
@@ -101,7 +100,7 @@ module.exports = function (sec) {
 			const groupModel = app.registry.getModelByType(groupTypeValue);
 			if (userModel === groupModel) {
 				const where = {[groupIdName]: userId};
-				if (rel.typeName) {
+				if (rel && rel.typeName) {
 					where[rel.typeName] = userModel.modelName;
 				}
 				return where;
@@ -109,7 +108,7 @@ module.exports = function (sec) {
 			// deal with group model
 			return acl.scoped(groupTypeValue).findMemberships({userId, state: 'active'}).then(mappings => {
 				const where = {[groupIdName]: {inq: _(mappings).map(m => m.scopeId).uniq().value()}};
-				if (rel.typeName) {
+				if (rel && rel.typeName) {
 					where[rel.typeName] = groupTypeValue;
 				}
 				return where;

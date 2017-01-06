@@ -72,10 +72,13 @@ class Security {
 		this.resources = _.filter(this.app.models, modelClass => {
 			const modelName = modelClass.modelName;
 			let aclopts = opts.resources[modelName];
-			if (!aclopts && this.isGroupModel(modelClass)) {
-				return false;
+			if (aclopts === false || (!aclopts && this.isGroupModel(modelClass))) {
+				return false
 			}
-			aclopts = opts.resources[modelName] || DEFAULT_GROUP_OPTS;
+			if (!_.isObject(aclopts)) {
+				aclopts = {};
+			}
+			aclopts = _.defaults(aclopts, DEFAULT_GROUP_OPTS);
 			const rel = modelClass.relations[aclopts.rel];
 			if (!rel) {
 				return false;
