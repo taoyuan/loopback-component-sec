@@ -181,6 +181,7 @@ module.exports = function (sec) {
 							debug(`${mmi} Checking %s whether has permission %s in group %j`, userId, action, current);
 							return acl.scoped(current).findUserRoles(userId, true).then(roles => acl.hasPermission([userId, ...roles], current, action));
 						}
+						return allowed;
 					})
 					.then(allowed => {
 						debug(`${mmi} User %s is %s to perform action %s[%s] in group %s`,
