@@ -1,6 +1,6 @@
 'use strict';
 
-const debug = require('debug')('loopback:component:sec:keepuser');
+const debug = require('debug')('loopback:component:gsec:keepuser');
 const Promise = require('bluebird');
 const LoopbackContext = require('loopback-context');
 const _ = require('lodash');

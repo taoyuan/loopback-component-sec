@@ -64,7 +64,7 @@ describe('REST API', () => {
 					.expect(200))
 				.then(res => {
 					assert.isArray(res.body);
-					assert.lengthOf(res.body, 2);
+					assert.lengthOf(res.body, 3);
 				});
 		});
 
@@ -75,7 +75,7 @@ describe('REST API', () => {
 					.expect(200))
 				.then(res => {
 					assert.isArray(res.body);
-					assert.lengthOf(res.body, 1);
+					assert.lengthOf(res.body, 2);
 					assert.property(res.body[0], 'name', 'ProductA1');
 				});
 		});
@@ -103,6 +103,17 @@ describe('REST API', () => {
 					assert.lengthOf(res.body, 2);
 					assert.property(res.body[0], 'name', 'ProductA1');
 					assert.property(res.body[1], 'name', 'ProductA2');
+				});
+		});
+
+		it('should get all product include private product with owner account', () => {
+			const user = s.users.userMemberA;
+			return logInAs(user.username)
+				.then(res => json('get', `/api/products?access_token=${res.body.id}`)
+					.expect(200))
+				.then(res => {
+					assert.isArray(res.body);
+					assert.lengthOf(res.body, 3);
 				});
 		});
 	});

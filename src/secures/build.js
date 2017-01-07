@@ -1,9 +1,9 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:build');
+const debug = require('debug')('loopback:component:gsec:build');
 const g = require('strong-globalize')();
 const _ = require('lodash');
-const deprecated = require('depd')('loopback:component:sec:build');
+const deprecated = require('depd')('loopback:component:gsec:build');
 const utils = require('../utils');
 
 module.exports = function (sec) {

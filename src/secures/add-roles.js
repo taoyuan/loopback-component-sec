@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:add-roles');
+const debug = require('debug')('loopback:component:gsec:add-roles');
 const _ = require('lodash');
 const Promise = require('bluebird');
 const chalk = require('chalk');

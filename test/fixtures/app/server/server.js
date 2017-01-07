@@ -19,6 +19,8 @@ app.start = function () {
 	});
 };
 
+app.standalone = require.main === module;
+
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
 boot(app, __dirname, err => {

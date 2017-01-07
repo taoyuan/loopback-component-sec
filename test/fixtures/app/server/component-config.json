@@ -20,14 +20,6 @@
 	  }
 	}
   },
-  "loopback-component-fixtures": {
-	"loadFixturesOnStartup": true,
-	"environments": [
-	  "development",
-	  "test"
-	],
-	"fixturesPath": "test/fixtures/"
-  },
   "loopback-component-admin": {
 	"mountPath": "/admin",
 	"userModel": "Account"

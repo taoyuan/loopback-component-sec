@@ -5,7 +5,6 @@ const _ = require('lodash');
 const path = require('path');
 const chai = require('chai');
 chai.use(require('chai-as-promised')).use(require('sinon-chai'));
-// require('mocha-sinon');
 const request = require('supertest-as-promised');
 
 process.env.SACL_LOG_LEVEL = 'debug';
@@ -13,15 +12,25 @@ process.env.SACL_LOG_LEVEL = 'debug';
 const app = exports.app = require(fixtures('app/server/server'));
 
 function cleanup() {
-	return PromiseA.map(_.values(app.models), model => model.dataSource && model.destroyAll());
+	const ignores = [];
+	return PromiseA.mapSeries(_.values(app.models), model => {
+		if (model.destroyAll) {
+			return PromiseA.fromCallback(cb => model.destroyAll(cb));
+		}
+		ignores.push(model.modelName);
+	}).then(() => {
+		if (!_.isEmpty(ignores)) {
+			console.warn('Ignore cleanup for model %j', ignores);
+		}
+	});
 }
 
 exports.setup = function () {
-	return PromiseA.fromCallback(done => app.setupFixtures(done));
+	return cleanup().then(() => app.setupFixtures());
 };
 
 exports.teardown = function () {
-	return cleanup();
+	return PromiseA.resolve(); // cleanup();
 };
 
 exports.fixtures = fixtures;

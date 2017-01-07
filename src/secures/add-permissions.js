@@ -1,6 +1,7 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:add-permissions');
+const debug = require('debug')('loopback:component:gsec:add-permissions');
+const _ = require('lodash');
 const g = require('strong-globalize')();
 const chalk = require('chalk');
 
@@ -8,7 +9,7 @@ module.exports = function (sec) {
 	debug(chalk.yellow('Setup permissions adding observer for group models'));
 
 	const {app} = sec;
-	const models = sec.groups;
+	const models = sec.models.filter(m => sec.isGroupModel(m) || _.get(m, '_aclopts.rowlevel') === true);
 
 	models.forEach(attachAfterSaveObserver);
 
@@ -32,7 +33,7 @@ module.exports = function (sec) {
 			}
 
 			debug('%s - Allowing default permissions for "%s:%s"', mni, modelName, ctx.instance.id);
-			sec.allowDefaultPermissions(ctx.instance).nodeify(next);
+			sec.allowDefaultPermissions(ctx.instance, sec.getCurrentUserId(ctx.options)).nodeify(next);
 		});
 	}
 };

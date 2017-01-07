@@ -58,6 +58,7 @@
     "loopback-context": "josieusa/loopback-context#feature/cls-hooked-3",
     "loopback-datasource-juggler": "^3.1.1",
     "mocha": "^3.2.0",
+    "needs": "^1.0.3",
     "nyc": "^10.0.0",
     "sinon": "^1.17.7",
     "sinon-chai": "^2.8.0",

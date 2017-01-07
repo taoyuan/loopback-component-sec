@@ -4,13 +4,13 @@ module.exports = function (Product) {
 	/* eslint-skip-next-line */
 	Product.edit = (owner, name, data, options) => {
 		return get(owner, name).then(prod => {
-			if (!prod) throw new Error('No production found');
+			if (!prod) throw new Error('No product found');
 			return prod.updateAttributes(data, options);
 		});
 	};
 	Product.edit.get = (ctx) => {
 		const {owner, prod} = ctx.args;
-		return get(owner, prod);
+		return Product.findOne({where: {ownerId: owner, name: prod}}, {secure: false});
 	};
 
 	function get(owner, name) {

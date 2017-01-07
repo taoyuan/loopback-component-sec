@@ -2,7 +2,7 @@
 
 const SG = require('strong-globalize');
 SG.SetRootDir(require('path').join(__dirname, '..'));
-const debug = require('debug')('loopback:component:sec');
+const debug = require('debug')('loopback:component:gsec');
 const Promise = require('bluebird');
 const Security = require('./security');
 

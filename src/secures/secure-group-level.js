@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:group-level-filter');
+const debug = require('debug')('loopback:component:gsec:group-level-filter');
 const g = require('strong-globalize');
 const _ = require('lodash');
 const chalk = require('chalk');

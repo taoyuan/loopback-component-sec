@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:secure');
+const debug = require('debug')('loopback:component:gsec:secure');
 const g = require('strong-globalize')();
 const _ = require('lodash');
 const chalk = require('chalk');

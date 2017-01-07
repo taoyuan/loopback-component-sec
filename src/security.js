@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require('debug')('loopback:component:sec:security');
+const debug = require('debug')('loopback:component:gsec:security');
 const _ = require('lodash');
 const assert = require('assert');
 const nsec = require('nsec');
@@ -135,7 +135,7 @@ class Security {
 		return _.get(Model, '_aclopts.rel') || this.opts.rel;
 	}
 
-	allowDefaultPermissions(inst) {
+	allowDefaultPermissions(inst, currentUserId) {
 		const rel = this.relname(inst);
 		assert(inst, '"inst" is required');
 
@@ -151,7 +151,7 @@ class Security {
 			rolesNames = Object.keys(settings.roles);
 			promise = PromiseA.resolve(inst);
 		} else {
-			assert(typeof inst[rel] === 'function', 'resource has no relation ' + rel);
+			assert(_.isFunction(inst[rel]), 'resource has no relation ' + rel);
 			rolesNames = Object.keys(settings.permissions);
 			promise = PromiseA.fromCallback(cb => inst[rel]({}, {skipGroupLevelFilter: true}, cb)).catch(err => {
 				if (/Polymorphic model not found/.test(err.message)) {
@@ -165,9 +165,16 @@ class Security {
 			if (!group) {
 				return debug('allowDefaultPermissions - Skip for no group instance found for %s:%s', modelName, inst.id);
 			}
-			return acl.scoped(group).resolveRoles(rolesNames).then(roles => {
-				const groupModelName = group.constructor.modelName;
-				const groupId = group.id;
+			const GroupModel = group.constructor;
+			const groupModelName = GroupModel.modelName;
+			const groupId = group.id;
+			if (GroupModel.modelName === this.opts.userModel && (!currentUserId || currentUserId === groupId)) {
+				debug('allowDefaultPermissions - Allowing %s:%s:%s to access %s:%s with permissions "*"', groupModelName, groupId, currentUserId, modelName, inst.id);
+				return acl.allow(groupId, inst, '*');
+			}
+
+			const scoped = acl.scoped(group);
+			return scoped.resolveRoles(rolesNames).then(roles => {
 				if (!roles.length) {
 					debug('allowDefaultPermissions - No roles %j found for %s:%s', rolesNames, groupModelName, groupId);
 				}
