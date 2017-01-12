@@ -23,7 +23,7 @@ module.exports = function (sec) {
 			const {options, hookState} = ctx;
 
 			if (options.secure === false || options.skipGroupLevelFilter) {
-				debug('%s - Skipping group level filter for options skipGroupLevelFilter has been set as true', mni);
+				debug('%s - Skipping group level filter for %j', mni, _.pick(options, ['secure', 'skipSecure', 'skipGroupLevelFilter']));
 				return next();
 			}
 
@@ -43,7 +43,7 @@ module.exports = function (sec) {
 			}
 
 			if (!options.nsecSecured) {
-				debug('nsec role not applied - skipping group level filters');
+				debug('Role authentication not applied - skipping group level filters');
 				return next();
 			}
 
@@ -81,7 +81,7 @@ module.exports = function (sec) {
 			groupIdName = rel.idName;
 			groupTypeValues = rel.typeValue || where[rel.typeName];
 			if (_.isEmpty(groupTypeValues) && rel.typeName) {
-				groupTypeValues = _.get(Model, '_aclopts.polymorphicTypes');
+				groupTypeValues = _.get(Model, '_aclopts.polymorphicTypes') || sec.defaultPolymorphicTypes;
 			}
 		} else if (sec.isGroupModel(Model)) {
 			groupIdName = Model.getIdName();

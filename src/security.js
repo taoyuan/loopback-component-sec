@@ -62,12 +62,14 @@ class Security {
 			return user || null;
 		};
 
-		const acl = this.acl = new nsec(ds, _.clone(opts));
+		const acl = this.acl = new nsec(ds, Object.assign({}, opts));
 
 		// Register nsec models to app
-		_.map(acl.models, m => app.model(m, _.assign({dataSource: ds}, opts.modelConfig)));
+		_.map(acl.models, m => app.model(m, Object.assign({dataSource: ds}, opts.modelConfig)));
 
-		this.groups = _.map(opts.groups, group => this.app.registry.getModel(group));
+		this.groups = _.map(opts.groups, g => this.app.registry.getModel(g));
+		// TODO: add options to config whether add user model to default polymorphic types
+		this.defaultPolymorphicTypes = _.map(this.groups, g => g.modelName).concat(opts.userModel);
 
 		this.resources = _.filter(this.app.models, modelClass => {
 			const modelName = modelClass.modelName;
