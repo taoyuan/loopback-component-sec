@@ -2,8 +2,9 @@
 
 const debug = require('debug')('loopback:component:gsec:add-roles');
 const _ = require('lodash');
-const Promise = require('bluebird');
+const PromiseA = require('bluebird');
 const chalk = require('chalk');
+const arrify = require('arrify');
 
 module.exports = function (sec) {
 	const {acl} = sec;
@@ -22,10 +23,10 @@ module.exports = function (sec) {
 		const modelName = Model.modelName;
 		const mni = chalk.green(modelName);
 
-		Model.observe('after save', (ctx, next) => {
+		Model.observe('after save', (ctx) => {
 			// only allow default permission for new instance
 			if (!ctx.isNewInstance) {
-				return next();
+				return PromiseA.resolve();
 			}
 
 			debug('%s - begin', mni);
@@ -33,13 +34,21 @@ module.exports = function (sec) {
 			const currentUserId = sec.getCurrentUserId(ctx.options);
 			debug('%s - Current user id: %s', mni, currentUserId);
 
-			const roles = Object.keys(Model.security.roles);
-			debug('%s - Add roles %j to "%s:%s"', mni, roles, modelName, ctx.instance.id);
+			const defs = Model.security.roles;
+			const names = Object.keys(defs);
+			debug('%s - Add roles %j to "%s:%s"', mni, names, modelName, ctx.instance.id);
 
-			Promise.map(roles, role => acl.scoped(ctx.instance).addRole(role))
+			return PromiseA.map(names, role => acl.scoped(ctx.instance).addRole(role))
+				.map(role => {
+					const inherits = arrify(_.get(defs, role.name + '.inherits'));
+					if (!_.isEmpty(inherits)) {
+						return acl.inheritRoleFrom(role, inherits).thenReturn(role);
+					}
+					return role;
+				})
 				.then(roles => {
 					if (currentUserId) {
-						return Promise.filter(roles, role => sec.opts.defaultCreatorRoles.includes(role.name));
+						return PromiseA.filter(roles, role => sec.opts.defaultCreatorRoles.includes(role.name));
 					}
 				})
 				.then(roles => {
@@ -47,8 +56,7 @@ module.exports = function (sec) {
 						debug('%s - Assign current user "%s" to roles %j of "%s:%s"', mni, currentUserId, _.map(roles, r => r.name), modelName, ctx.instance.id);
 						return acl.scoped({type: modelName, id: ctx.instance.id}).assignMemberships(currentUserId, roles, 'active');
 					}
-				})
-				.nodeify(next);
+				});
 		});
 	}
 };
