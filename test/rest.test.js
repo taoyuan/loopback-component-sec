@@ -127,7 +127,7 @@ describe('REST API', () => {
 			const user = s.users.userAdminA;
 			return logInAs(user.username)
 				.then(res => json('post', `/api/stores?access_token=${res.body.id}`)
-					.send({name: 'C'})
+					.send({id: 'C', name: 'Store C'})
 					.expect(200))
 				.then(res => {
 					const scoped = acl.scoped('Store:' + res.body.id);
