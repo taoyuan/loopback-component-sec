@@ -64,7 +64,7 @@ exports.users = {
 	},
 	userManagerA: {
 		username: 'userManagerA',
-		abilities: ['create', 'read', 'update']
+		abilities: ['create', 'read', 'update', 'delete']
 	},
 	userAdminA: {
 		username: 'userAdminA',

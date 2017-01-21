@@ -118,7 +118,13 @@ class Security {
 		assert(_.isObject(method), 'method is a required argument and must be a RemoteMethod object');
 
 		const action = _.find(_.get(Model, 'security.actions'), action => _.includes(action.methods, method.name));
-		if (action) return action.name;
+		if (action) {
+			return action.name;
+		}
+		const sharedMethod = _.find(Model.sharedClass.methods(), m => m.name === method.name);
+		if (sharedMethod && sharedMethod.accessType) {
+			return _.toLower(sharedMethod.accessType) === 'execute' ? Actions.MANAGE : sharedMethod.accessType;
+		}
 		return Actions.fromMethod(method.name, Actions.MANAGE);
 	}
 

@@ -7,9 +7,6 @@ describe('actions', () => {
 	it('should mapped methods to actions', () => {
 		assert.deepEqual(Actions.METHODS_TO_ACTIONS, {
 			count: "read",
-			create: "write",
-			deleteById: "manage",
-			destroyById: "manage",
 			exists: "read",
 			find: "read",
 			findById: "read",
@@ -17,10 +14,13 @@ describe('actions', () => {
 			get: "read",
 			patchAttributes: "write",
 			patchOrCreate: "write",
-			removeById: "manage",
+			removeById: "write",
 			updateOrCreate: "write",
 			upsert: "write",
-			upsertWithWhere: "write"
+			upsertWithWhere: "write",
+			create: "write",
+			deleteById: "write",
+			destroyById: "write",
 		});
 	});
 });

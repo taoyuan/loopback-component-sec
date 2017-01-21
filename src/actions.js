@@ -8,8 +8,8 @@ const MANAGE = 'manage';
 
 const ACTIONS_TO_METHODS = {
 	[READ]: ['exists', 'get', 'find', 'findById', 'findOne', 'count'],
-	[WRITE]: ['create', 'updateOrCreate', 'upsertWithWhere', 'upsert', 'patchOrCreate', 'patchAttributes'],
-	[MANAGE]: ['destroyById', 'deleteById', 'removeById'],
+	[WRITE]: ['create', 'updateOrCreate', 'upsertWithWhere', 'upsert', 'patchOrCreate', 'patchAttributes', 'destroyById', 'deleteById', 'removeById'],
+	[MANAGE]: [],
 };
 
 const METHODS_TO_ACTIONS = _(ACTIONS_TO_METHODS)
