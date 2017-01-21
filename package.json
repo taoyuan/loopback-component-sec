@@ -34,7 +34,7 @@
     "debug": "^2.6.0",
     "depd": "^1.1.0",
     "lodash": "^4.17.4",
-    "nsec": "^0.3.10",
+    "nsec": "^0.4.0",
     "strong-globalize": "^2.8.0"
   },
   "devDependencies": {
