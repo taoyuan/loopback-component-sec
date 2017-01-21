@@ -1,6 +1,6 @@
 {
   "name": "loopback-component-sec",
-  "version": "0.3.16",
+  "version": "0.3.17",
   "description": "A loopback security component with scoped roles management and permission access control",
   "main": "./src/index.js",
   "jsnext:main": "./src/index.js",
@@ -34,7 +34,7 @@
     "debug": "^2.6.0",
     "depd": "^1.1.0",
     "lodash": "^4.17.4",
-    "nsec": "^0.3.9",
+    "nsec": "^0.3.10",
     "strong-globalize": "^2.8.0"
   },
   "devDependencies": {
@@ -43,7 +43,7 @@
     "cls-hooked": "^4.1.4",
     "cors": "^2.8.1",
     "coveralls": "^2.11.15",
-    "eslint": "^3.13.1",
+    "eslint": "^3.14.0",
     "eslint-config-airbnb": "^14.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.0.2",
@@ -56,7 +56,7 @@
     "loopback-component-fixtures": "ttothAISS/loopback-component-fixtures",
     "loopback-connector-mongodb": "^3.0.0",
     "loopback-context": "josieusa/loopback-context#feature/cls-hooked-3",
-    "loopback-datasource-juggler": "^3.1.1",
+    "loopback-datasource-juggler": "^3.2.0",
     "mocha": "^3.2.0",
     "needs": "^1.0.3",
     "nyc": "^10.1.2",
