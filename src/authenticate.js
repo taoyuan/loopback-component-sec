@@ -64,26 +64,24 @@ module.exports = function (sec) {
 			return modelId && model.findById(modelId, {}, {secure: false});
 		}
 
-		return Promise.resolve().then(() => {
-			let promise = Promise.resolve();
+		let promise = Promise.resolve();
 
-			if (modelId) {
-				debug('Fetching current group for model: %s, with id: %s, for method: %s', modelName, modelId, method);
-				promise = promise.then(() => model.findById(modelId, {}, {secure: false}));
-			} else {
-				const m = model[method];
-				if (m && m.get) {
-					promise = promise.then(() => m.get(ctx.remotingContext));
-				}
+		if (modelId) {
+			debug('Fetching current group for model: %s, with id: %s, for method: %s', modelName, modelId, method);
+			promise = promise.then(() => model.findById(modelId, {}, {secure: false}));
+		} else {
+			const m = model[method];
+			if (m && m.get) {
+				promise = promise.then(() => m.get(ctx.remotingContext));
 			}
-			return promise.then(instance => {
-				instance = instance || _.get(remotingContext, 'args.data');
-				const group = utils.getGroup(model, rel, instance);
-				if (group) {
-					debug('Determined current group: %j, from remoting incoming data for model %s, for method %s', group, modelName, method);
-					return resolveModelInstance(group);
-				}
-			});
+		}
+		return promise.then(instance => {
+			instance = instance || _.get(remotingContext, 'args.data');
+			const group = utils.getGroup(model, rel, instance);
+			if (group) {
+				debug('Determined current group: %j, from remoting incoming data for model %s, for method %s', group, modelName, method);
+				return resolveModelInstance(group);
+			}
 		});
 	}
 
@@ -135,7 +133,7 @@ module.exports = function (sec) {
 		const action = resolveAction(modelClass, method);
 
 		const info = _({role, model: modelName, method, action, userId, modelId})
-			.transform((result, v, k) => (result.push(k + ': ' + chalk.blue(v))), []);
+			.transform((result, v, k) => (result.push(k + ': ' + chalk.blue(v))), []).value();
 
 		let remotingInfo = '';
 		if (remotingData) {
@@ -152,7 +150,7 @@ module.exports = function (sec) {
 			return Promise.resolve(false);
 		}
 
-		remotingOptions.nsecSecured = true;
+		remotingOptions.gsecAccessSecureApplied = true;
 
 		return acl.hasRoles(userId, 'admin').then(isAdmin => {
 			if (isAdmin) {

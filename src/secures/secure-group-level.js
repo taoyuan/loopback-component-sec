@@ -22,7 +22,7 @@ module.exports = function (sec) {
 		Model.observe('access', (ctx, next) => {
 			const {options, hookState} = ctx;
 
-			if (options.secure === false || options.skipGroupLevelFilter) {
+			if (options.secure === false || options.skipSecure || options.skipGroupLevelFilter) {
 				debug('%s - Skipping group level filter for %j', mni, _.pick(options, ['secure', 'skipSecure', 'skipGroupLevelFilter']));
 				return next();
 			}
@@ -42,7 +42,7 @@ module.exports = function (sec) {
 				return next();
 			}
 
-			if (!options.nsecSecured) {
+			if (!options.gsecAccessSecureApplied) {
 				debug('Role authentication not applied - skipping group level filters');
 				return next();
 			}

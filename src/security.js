@@ -129,8 +129,16 @@ class Security {
 	}
 
 	isGroupModel(modelClass) {
+		return this.isModelIn(modelClass, this.groups);
+	}
+
+	isResourceModel(modelClass) {
+		return this.isModelIn(modelClass, this.resources);
+	}
+
+	isModelIn(modelClass, models) {
 		if (!modelClass) return false;
-		return Boolean(_.find(this.groups, Model => {
+		return Boolean(_.find(models, Model => {
 			return modelClass === Model ||
 				modelClass.prototype instanceof Model ||
 				modelClass === Model.modelName;
