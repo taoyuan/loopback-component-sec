@@ -48,7 +48,7 @@ module.exports = function (sec) {
 		let prefix = '';
 		if (resolved.rel) {
 			const RelModel = _.get(Model.relations[resolved.rel], 'modelTo');
-			if (RelModel && !sec.isGroupModel(RelModel)) {
+			if (RelModel && (!sec.isGroupModel(RelModel))) {
 				prefix = RelModel.modelName + ':';
 			}
 		}
@@ -130,7 +130,7 @@ module.exports = function (sec) {
 		const mm = chalk.green(modelName + '.' + method);
 		const mmi = chalk.green(modelName + '.' + method) + ' - ';
 
-		const action = resolveAction(modelClass, method);
+		let action = resolveAction(modelClass, method);
 
 		const info = _({role, model: modelName, method, action, userId, modelId})
 			.transform((result, v, k) => (result.push(k + ': ' + chalk.blue(v))), []).value();
@@ -158,51 +158,69 @@ module.exports = function (sec) {
 				return true;
 			}
 
-			return Promise.all([
-				getCurrentGroup(context),
-				getTargetGroup(context)
-			]).then(([current, target]) => {
-				if (!current) {
-					// No group context was determined, so allow passthrough access.
-					// This allow all creation actions
-					// TODO create action check ?
-					debug(`${mmi} Could not find group, skipping ACL check on model ${chalk.blue(modelName)} for method ${chalk.blue.bold(method)}.`);
-					return true;
-				}
-
-				const groupIsUser = current.constructor.modelName === sec.opts.userModel;
-				const groupIsCurrentUser = groupIsUser && current.id === userId;
-
-				return Promise.resolve(groupIsCurrentUser)
-					.then(allowed => {
-						if (!allowed) {
-							debug(`${mmi} Checking %s whether has permission %s in group %j`, userId, action, current);
-							return acl.scoped(current).findUserRoles(userId, true).then(roles => acl.hasPermission([userId, ...roles], current, action));
+			return Promise.all([getCurrentGroup(context), getTargetGroup(context)])
+				.then(([current, target]) => {
+					// Use parent group to check READ permission for model that is both group and resource model
+					if (current && sec.isResourceModel(current.constructor) && _.toUpper(action) === 'READ') {
+						debug('Resolved group %s is both group and resource model, use parent group instance to check', current.constructor.modelName);
+						const rel = _.get(current.constructor, '_aclopts.rel') || sec.opts.rel;
+						const group = utils.getGroup(current.constructor, rel, current);
+						if (group) {
+							return resolveModelInstance(group).then(group => {
+								if (group) {
+									// current group and parent group are different models, change action to [PARENT]:[ACTION]
+									if (group.constructor !== current.constructor) {
+										action = _.toUpper(current.constructor.modelName) + ':' + action;
+									}
+									return [group, target];
+								}
+							});
 						}
-						return allowed;
-					})
-					.then(allowed => {
-						debug(`${mmi} User %s is %s to perform action %s[%s] in group %s`,
-							chalk.magenta.bold(userId),
-							chalk.magenta.bold(allowed ? 'allowed' : 'not allowed'),
-							chalk.magenta(action),
-							chalk.magenta(modelName + '.' + method),
-							chalk.magenta(utils.toIdentifyString(current))
-						);
+					}
+					return [current, target];
+				})
+				.then(([current, target]) => {
+					if (!current) {
+						// No group context was determined, so allow passthrough access.
+						// This allow all creation actions
+						// TODO create action check ?
+						debug(`${mmi} Could not find group, skipping ACL check on model ${chalk.blue(modelName)} for method ${chalk.blue.bold(method)}.`);
+						return true;
+					}
 
-						if (!allowed) return false;
+					const groupIsUser = current.constructor.modelName === sec.opts.userModel;
+					const groupIsCurrentUser = groupIsUser && current.id === userId;
 
-						if (target && !_.isEqual(current, target)) {
-							return acl.scoped(target).findUserRoles(userId, true)
-								.then(roles => acl.hasPermission([userId, ...roles], target, action))
-								.then(allowed => {
-									debug(`${mmi} Attempting save into new target group, User %s is%s allowed in target group %j`, userId, allowed ? '' : ' not', target);
-									return allowed;
-								});
-						}
-						return allowed;
-					});
-			});
+					return Promise.resolve(groupIsCurrentUser)
+						.then(allowed => {
+							if (!allowed) {
+								debug(`${mmi} Checking %s whether has permission %s in group %j`, userId, action, current);
+								return acl.scoped(current).findUserRoles(userId, true).then(roles => acl.hasPermission([userId, ...roles], current, action));
+							}
+							return allowed;
+						})
+						.then(allowed => {
+							debug(`${mmi} User %s is %s to perform action %s[%s] in group %s`,
+								chalk.magenta.bold(userId),
+								chalk.magenta.bold(allowed ? 'allowed' : 'not allowed'),
+								chalk.magenta(action),
+								chalk.magenta(modelName + '.' + method),
+								chalk.magenta(utils.toIdentifyString(current))
+							);
+
+							if (!allowed) return false;
+
+							if (target && !_.isEqual(current, target)) {
+								return acl.scoped(target).findUserRoles(userId, true)
+									.then(roles => acl.hasPermission([userId, ...roles], target, action))
+									.then(allowed => {
+										debug(`${mmi} Attempting save into new target group, User %s is%s allowed in target group %j`, userId, allowed ? '' : ' not', target);
+										return allowed;
+									});
+							}
+							return allowed;
+						});
+				});
 		});
 	};
 };
