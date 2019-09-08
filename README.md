@@ -3,7 +3,7 @@
 [![NPM version](http://img.shields.io/npm/v/loopback-component-sec.svg?style=flat-square)](https://www.npmjs.com/package/loopback-component-sec)
 [![NPM downloads](http://img.shields.io/npm/dm/loopback-component-sec.svg?style=flat-square)](https://www.npmjs.com/package/loopback-component-sec)
 [![Build Status](http://img.shields.io/travis/taoyuan/loopback-component-sec/master.svg?style=flat-square)](https://travis-ci.org/taoyuan/loopback-component-sec)
-[![Coverage Status](https://img.shields.io/coveralls/taoyuan/loopback-component-sec.svg?style=flat-square)](https://coveralls.io/taoyuan/loopback-component-sec)
+[![Coverage Status](https://img.shields.io/coveralls/taoyuan/loopback-component-sec.svg?style=flat-square)](https://coveralls.io/taoyuan/loopback-component-sec) [![Greenkeeper badge](https://badges.greenkeeper.io/taoyuan/loopback-component-sec.svg)](https://greenkeeper.io/)
 
 > A loopback security component with scoped roles management and permission access control
 
